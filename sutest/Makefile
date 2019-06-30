@@ -12,7 +12,7 @@ LIBRARIES     +=  $(shell sed "s;\#.*;;" bin/LIBRARIES 2> /dev/null)
 endif
 
 LIB_COMPONENTS := $(shell sed -e "s;\#.*;;" -e "s;.*SAM.*;;" src/COMPONENTS 2> /dev/null)
-LIB_SOURCES    := $(LIB_COMPONENTS:%=src/%.c)
+LIB_SOURCES    := $(LIB_COMPONENTS:%=src/%.cpp)
 LIB_OBJECTS    := $(LIB_COMPONENTS:%=tmp/%.o)
 LIB_TARGET     := lib/lib$(PKG).$(DllSuf)
 LIB_STATIC_TGT := lib/lib$(PKG).a
@@ -20,7 +20,7 @@ TARGET = lib$(PACKAGE)
 
 ifneq (,$(wildcard bin/BINARIES))
 BIN_COMPONENTS := $(shell sed "s;\#.*;;" bin/BINARIES 2> /dev/null)
-BIN_SOURCES    := $(BIN_COMPONENTS:%=bin/%.c)
+BIN_SOURCES    := $(BIN_COMPONENTS:%=bin/%.cpp)
 BIN_OBJECTS    := $(BIN_COMPONENTS:%=tmp/%.o)
 BIN_TARGETS    := $(BIN_COMPONENTS:%=bin/%)
 STATIC_OBJECTS := $(BIN_COMPONENTS:%=tmp/%.o)
