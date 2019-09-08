@@ -1,0 +1,55 @@
+//============================================
+//Programm "neuro" for weights computation
+//tree.hpp :: header-file
+//Created by Alexander Uzunyan september 2019
+//For compilation:  g++ --std=c++11 -c tree.hpp -o Tree.o 
+//============================================
+#define Tree_cpp
+#include "tree.hpp"
+using namespace std;
+
+// tree_pilot::tree_pilot(){
+
+//   tree = new TTree("T", "neuro data from ascii file");
+// }
+//======================================
+//======================================
+void tree_pilot::file_dat_open(){
+
+   file = fopen("neuro.dat", "r");
+
+   if (file = NULL){
+     cout << "File is not opened" << endl;
+   }
+}
+//======================================
+//======================================
+void tree_pilot::file_root_open(){
+
+   f = new TFile("neuro.root", "RECREATE");
+
+}
+//======================================
+//======================================
+void tree_pilot::fill_tree(){
+
+  tree = new TTree("T", "neuro data from ascii file");
+  tree -> Branch("Pilot Death propobility",&pilot_param.death_propability,"height:body_weight:age:eyes_color:male");
+
+  while(fgets(&line,99,file)){
+    sscanf(&line[0],"%f%f%d%c%c%d",&pilot_param.height,&pilot_param.body_weight,&pilot_param.age,&pilot_param.eyes_color,&pilot_param.male,&pilot_param.death_propability);
+    tree -> Fill();
+  }
+}
+
+void tree_pilot::tree_print(){
+
+  tree -> Print();
+}
+//======================================
+//======================================
+void tree_pilot::file_close(){
+  
+  fclose(file);
+  f -> Write();
+}
