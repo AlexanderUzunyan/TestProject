@@ -55,23 +55,23 @@ void tree_pilot::fill_tree(){
    
    cout << "Branch is created" << endl;
 
-   fgets(line,49,file);
-   cout << "line: " << endl;
-   sscanf(&line[0],"%f %f %d %d %d %f",&pilot_param.height,&pilot_param.body_weight,&pilot_param.age,&pilot_param.eyes_color,&pilot_param.male,&pilot_param.death_propability);
+   //fgets(line,49,file);
+   //cout << "line: " << endl;
+   //sscanf(&line[0],"%f %f %d %d %d %f",&pilot_param.height,&pilot_param.body_weight,&pilot_param.age,&pilot_param.eyes_color,&pilot_param.male,&pilot_param.death_propability);
       
 
- //   while(fgets(line,49,file)){
-//      // sscanf(&line[0],"%f % f %d %d %d %f",&pilot_param.height,&pilot_param.body_weight,&pilot_param.age,&pilot_param.eyes_color,&pilot_param.male,&pilot_param.death_propability);
+  while(fgets(line,49,file)){
+      sscanf(&line[0],"%lf %lf %d %d %d %lf",&pilot_param.height,&pilot_param.body_weight,&pilot_param.age,&pilot_param.eyes_color,&pilot_param.male,&pilot_param.death_propability);
      
 //     //sscanf(&line[0],"%f%f%d",&pilot_param.height,&pilot_param.body_weight,&pilot_param.age);
 //     //sscanf(&line[40],"%d%d%f",&pilot_param.eyes_color,&pilot_param.male,&pilot_param.death_propability);
-//     tree -> Fill();
-//   }
-
-  if (debug == 2){
-    cout << "Tree is filled: " << endl;
-    
+     tree -> Fill();
   }
+
+  //  if (debug == 2){
+  //  cout << "Tree is filled: " << endl;
+    
+  //}
 }
 
 void tree_pilot::tree_print(){
