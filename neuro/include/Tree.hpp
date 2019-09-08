@@ -30,11 +30,12 @@ class tree_pilot
   public:
     
     struct pilot_param_{
-	double height;
-	double body_weight;
+	int nr;
 	int age;
 	int eyes_color; 
 	int male;
+	double height;
+	double body_weight;
 	double death_propability;
     };
     pilot_param_ pilot_param;
