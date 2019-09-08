@@ -1,0 +1,29 @@
+//============================================
+//Programm "neuro" for weights computation
+//tree.hpp :: header-file
+//Created by Alexander Uzunyan september 2019
+//============================================
+#define Tree_cpp;
+#include "Tree.hpp";
+
+tree_pilot(FILE* file, TFile* f, TTree* tree){
+
+  file = fopen("neuro.dat", "r");
+  f = new TFile("neuro.root", "RECREATE");
+  tree = new TTree("T", "neuro data from ascii file");
+}
+//======================================
+//======================================
+tree_pilot::file_open(){
+
+}
+//======================================
+//======================================
+tree_pilot::fill_tree(){
+
+}
+//======================================
+//======================================
+tree_pilot::file_close(){
+
+}
