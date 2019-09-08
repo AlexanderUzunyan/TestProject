@@ -132,7 +132,7 @@ bin/%_static:  tmp/%.o  $(LIBRARIES:%=lib/lib%.$(DllSuf))
 
 # Uncomment for debug
 	@echo "$(PKG) -- Linking Static Binary `basename $@ `"
-#	@echo "$(CXX) -static  -I./ -o $@_static $< $(LDFLAGS) "
+	@echo "$(CXX) -static  -I./ -o $@_static $< $(LDFLAGS) "
 	@$(CXX) -static  -I./ -o $@ $< $(LDFLAGS)  
 
 
