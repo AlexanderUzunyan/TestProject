@@ -114,4 +114,5 @@ void tree_pilot::tree_print(){
 void tree_pilot::file_close(){
   
   fclose(file);
+  fclose(file1);
 }
