@@ -54,7 +54,7 @@ void pilot::fill_parameters(){
 //======================================
 void pilot::probability_calculation(){
 
-  weight = 1*height + 2*body_weight + 2*age + 0.3*int(e_color) + 0.2*int(sex);
+  weight = 1*height + 2*body_weight + 2*age + 0.3*e_color + 0.2*sex;
   if(e_color == 0) {weight = weight * 1.5;} 
 
 }
