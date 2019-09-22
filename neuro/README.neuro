@@ -1,0 +1,9 @@
+Stgnal and background samples generations for neural network example.
+
+gmake clean 
+gmake all
+
+run 'neuro_pilots' with level_debug and numbers of events parameters
+run 'tree' with level_debug parameter for creating two files with sygnal and background
+
+
