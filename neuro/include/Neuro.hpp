@@ -19,10 +19,13 @@ class pilot
     double height;
     double body_weight;
     int age;
-    char e_color;
-    char male_0;
-    char eyes_color[4] = {'g'};
-    //char eyes_color[4] = {'g', 'b', 'w', 's'};
+    int e_color;
+    int e_all_color;
+    int sex;
+    ///char eyes_color[4] = {'g', 'b', 'w', 's'};
+    //char eyes_color[4] = {'g'};
+    
+    // int eyes_color[4] = {1};
     char male[2] = {'m', 'f'};
     
 
@@ -33,6 +36,7 @@ class pilot
     time_t random_point;
     double weight;
     std::ofstream out;
+    std::ofstream out1;
 
     pilot(int debug, int counter);
     pilot();//dlia inicializacii massiva char
