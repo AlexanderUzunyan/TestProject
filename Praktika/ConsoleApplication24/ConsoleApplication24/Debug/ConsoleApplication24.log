@@ -1,0 +1,8 @@
+﻿  ConsoleApplication24.cpp
+c:\users\alex\documents\visual studio 2015\projects\consoleapplication24\consoleapplication24\consoleapplication24.cpp(27): warning C4101: 'end_pos': unreferenced local variable
+c:\users\alex\documents\visual studio 2015\projects\consoleapplication24\consoleapplication24\consoleapplication24.cpp(25): warning C4101: 'cur_pos': unreferenced local variable
+c:\users\alex\documents\visual studio 2015\projects\consoleapplication24\consoleapplication24\consoleapplication24.cpp(24): warning C4101: 'step_pos': unreferenced local variable
+c:\users\alex\documents\visual studio 2015\projects\consoleapplication24\consoleapplication24\consoleapplication24.cpp(40): warning C4101: 'command_in': unreferenced local variable
+c:\users\alex\documents\visual studio 2015\projects\consoleapplication24\consoleapplication24\consoleapplication24.cpp(26): warning C4101: 'start_pos': unreferenced local variable
+  ConsoleApplication24.vcxproj -> C:\Users\Alex\documents\visual studio 2015\Projects\ConsoleApplication24\Debug\ConsoleApplication24.exe
+  ConsoleApplication24.vcxproj -> C:\Users\Alex\documents\visual studio 2015\Projects\ConsoleApplication24\Debug\ConsoleApplication24.pdb (Full PDB)
