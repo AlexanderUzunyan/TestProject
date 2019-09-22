@@ -46,7 +46,7 @@ void pilot::fill_parameters(){
   body_weight = rand() % 35 + 40;
   age = rand() % 20 + 25;
   e_color = rand() % 1;
-  e_all_color = rand() %4;  
+  e_all_color = rand() % 4;  
   sex =  rand() % 2;
 
 }
@@ -55,8 +55,10 @@ void pilot::fill_parameters(){
 void pilot::probability_calculation(){
 
   weight = 1*height + 2*body_weight + 2*age + 0.3*e_color + 0.2*sex;
+  weight1 =  1*height + 2*body_weight + 2*age + 0.3*e_all_color + 0.2*sex;
   if(e_color == 0) {weight = weight * 1.5;} 
-
+  if(e_all_color == 0) {weight1 = weight1 * 1.5;} 
+  
 }
 //======================================
 //======================================
@@ -107,7 +109,7 @@ void pilot::input_file_stream(){
       " " << age <<
       " " << e_all_color << 
       " " << sex <<
-      " " << weight <<
+      " " << weight1 <<
     endl;
    }
 }
