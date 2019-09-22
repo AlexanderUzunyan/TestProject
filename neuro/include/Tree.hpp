@@ -33,7 +33,7 @@ class tree_pilot
 	int nr;
 	int age;
 	int eyes_color; 
-	int male;
+	int sex;
 	double height;
 	double body_weight;
 	double death_propability;
