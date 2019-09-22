@@ -45,16 +45,16 @@ void pilot::fill_parameters(){
   height = rand() % 25 + 150;
   body_weight = rand() % 35 + 40;
   age = rand() % 20 + 25;
-  e_color = eyes_color[rand() % 4];  
-  male_0 = male[rand() % 2];
+  e_color = rand() % 1;  
+  sex =  rand() % 2;
 
 }
 //======================================
 //======================================
 void pilot::probability_calculation(){
 
-  weight = 1*height + 2*body_weight + 2*age + 0.3*int(e_color) + 0.2*int(male_0);
-  if(e_color == 'g') {weight = weight * 1.5;} 
+  weight = 1*height + 2*body_weight + 2*age + 0.3*int(e_color) + 0.2*int(sex);
+  if(e_color == 0) {weight = weight * 1.5;} 
 
 }
 //======================================
@@ -66,7 +66,7 @@ void pilot::print_parameters(){
      " " << "Body_weight:" << body_weight <<
      " " << "Age:" << age << 
      " " << "Eyes_color:" << e_color << 
-     " " << "Male:" << male_0 << 
+     " " << "Sex:" << sex << 
      " " << "Weight:" << weight <<  
    endl;
    
@@ -75,7 +75,7 @@ void pilot::print_parameters(){
 //======================================
 void pilot::open_file(){
 
-  out.open("neuro.dat");
+  out.open("neuro1.dat");
   cout << "File is opened" << endl;
 
 }
@@ -90,8 +90,8 @@ void pilot::input_file_stream(){
     out << height << 
       " " << body_weight <<
       " " << age <<
-      " " << (int)e_color << 
-      " " << (int)male_0 <<
+      " " << e_color << 
+      " " << sex <<
       " " << weight <<
     endl;
    }
