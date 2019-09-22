@@ -45,7 +45,8 @@ void pilot::fill_parameters(){
   height = rand() % 25 + 150;
   body_weight = rand() % 35 + 40;
   age = rand() % 20 + 25;
-  e_color = rand() % 1;  
+  e_color = rand() % 1;
+  e_all_color = rand() %4;  
   sex =  rand() % 2;
 
 }
@@ -75,7 +76,8 @@ void pilot::print_parameters(){
 //======================================
 void pilot::open_file(){
 
-  out.open("neuro1.dat");
+  out.open("neuro_signal.dat");
+  out1.open("neuro_back.dat");
   cout << "File is opened" << endl;
 
 }
@@ -95,12 +97,26 @@ void pilot::input_file_stream(){
       " " << weight <<
     endl;
    }
+
+ if(out1==NULL){
+    out1 << "File is not opend" << endl;
+    exit(1);
+    }else{
+    out1 << height << 
+      " " << body_weight <<
+      " " << age <<
+      " " << e_all_color << 
+      " " << sex <<
+      " " << weight <<
+    endl;
+   }
 }
 //======================================
 //======================================
 void pilot::close_file(){
   
   out.close();
+  out1.close();
   cout << "File is closed" << endl;
 
 }
