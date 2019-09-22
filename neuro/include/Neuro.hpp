@@ -35,6 +35,7 @@ class pilot
     int counter;
     time_t random_point;
     double weight;
+    double weight1;
     std::ofstream out;
     std::ofstream out1;
 
