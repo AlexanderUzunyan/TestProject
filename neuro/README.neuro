@@ -3,7 +3,8 @@ Stgnal and background samples generations for neural network example.
 gmake clean 
 gmake all
 
-run 'neuro_pilots' with level_debug and numbers of events parameters
-run 'tree' with level_debug parameter for creating two files with sygnal and background
+Example runnign program 'neuro_pilots 2 500' with parameters '1' - level of printing info about program`s work, '500' - numbers of events in output file. Program generate two files with data/
+ 
+Exmaple running program 'tree 1' with parameter '1' - level of printing info about program`s work; program creates two files with signal and background
 
 
