@@ -5,7 +5,7 @@
 //For compile:g++ --std=c++11 -c neuro.hpp -o Neuro.o
 //============================================
 #define Neuro_cpp
-#include "neuro.hpp"
+#include "Neuro.hpp"
 using namespace std;
 
 pilot::pilot(int _debug, int _counter){
