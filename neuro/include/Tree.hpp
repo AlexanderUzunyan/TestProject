@@ -43,8 +43,11 @@ class tree_pilot
     int debug;
 
     FILE* file;
+    FILE* file1;
     TFile* f;
+    TFile* f1;
     TTree* tree;
+    TTree* tree1;
     char line[50];
 
     tree_pilot(int debug);
