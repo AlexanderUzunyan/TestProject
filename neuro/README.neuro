@@ -1,0 +1,25 @@
+Stgnal and background samples generations for neural network example.
+
+<<<<<<< HEAD
+Example:
+gmake clean           #remove service files 
+gmake all             #create binaries
+neuro_pilots 2 500    #generate text data  files for signal and background
+tree  1               #convert text files into root format
+
+When done should see 2 root files::
+neuro]$ ls *.root
+neuro_back.root  neuro_signal.root
+
+=======
+gmake clean 
+gmake all 
+neuro_pilots 2 500
+tree 1
+>>>>>>> 25381c1eaae819700a84747e5d75db22a31ad0a8
+
+Example runnign program 'neuro_pilots 2 500' with parameters '1' - level of printing info about program`s work, '500' - numbers of events in output files. Program generate two files with data
+ 
+Exmaple running program 'tree 1' with parameter '1' - level of printing info about program`s work; program creates two files with signal and background
+
+
