@@ -230,12 +230,12 @@ int TMVAClassification_test( TString myMethodList = "" )
    //dataloader->AddVariable( "var3",                "Variable 3", "units", 'F' );
    //dataloader->AddVariable( "var4",                "Variable 4", "units", 'F' );
 
-   dataloader->AddVariable( "var1", "Age", "units", 'F' );
-   dataloader->AddVariable( "var2", "e_color", "units", 'F' );
-   dataloader->AddVariable( "var3", "sex", "units", 'F' );
-   dataloader->AddVariable( "var4", "height", "units", 'F' );
-   dataloader->AddVariable( "var5", "body_weight", "units", 'F' );
-   dataloader->AddVariable( "var6", "death_propability", "units", 'F' );
+   dataloader->AddVariable( "age", "age", "units", 'F' );
+   dataloader->AddVariable( "e_color", "e_color", "units", 'F' );
+   dataloader->AddVariable( "sex", "sex", "units", 'F' );
+   dataloader->AddVariable( "height", "height", "units", 'F' );
+   dataloader->AddVariable( "body_weight", "body_weight", "units", 'F' );
+   dataloader->AddVariable( "death_propability", "death_propability", "units", 'F' );
 
    std::cout << "5" << std::endl;
 
@@ -300,7 +300,7 @@ int TMVAClassification_test( TString myMethodList = "" )
    // Set individual event weights (the variables must exist in the original TTree)
    // -  for signal    : `dataloader->SetSignalWeightExpression    ("weight1*weight2");`
    // -  for background: `dataloader->SetBackgroundWeightExpression("weight1*weight2");`
-   dataloader->SetBackgroundWeightExpression( "weight" );
+   // dataloader->SetBackgroundWeightExpression( "weight" );
 
    // Apply additional cuts on the signal and background samples (can be different)
    TCut mycuts = ""; // for example: TCut mycuts = "abs(var1)<0.5 && abs(var2-0.5)<1";
