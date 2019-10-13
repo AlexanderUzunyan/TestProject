@@ -10,6 +10,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
+#include <random>
 
 
 class pilot
@@ -22,12 +23,6 @@ class pilot
     int e_color;
     int e_all_color;
     int sex;
-    ///char eyes_color[4] = {'g', 'b', 'w', 's'};
-    //char eyes_color[4] = {'g'};
-    
-    // int eyes_color[4] = {1};
-    char male[2] = {'m', 'f'};
-    
 
   public:
  
