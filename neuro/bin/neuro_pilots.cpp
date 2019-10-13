@@ -1,10 +1,10 @@
 //============================================
-//Programm "neuro" for weights computation
-//neuro.hpp :: header-file
+//Programm "neuro" for weights computation and tree creation
+//Neuro.hpp , Tree.hpp :: header-files
 //Created by Alexander Uzunyan august 2019
-//For compile:g++ --std=c++11 neuro.cpp -L ./Neuro.o -o neuro
 //============================================
 #include "Neuro.hpp"
+#include "Tree.hpp"
 using namespace std;
 //===============================================
 
@@ -21,7 +21,9 @@ int main(int argc, char** argv)
   
   int debug = atoi(argv[1]);
   int counter = atoi(argv[2]);
+
   pilot p(debug, counter);
+  tree_pilot tree(debug);
 
   p.status_begin();
   p.open_file();
@@ -39,6 +41,11 @@ int main(int argc, char** argv)
    }
   p.close_file();
 
+  //TREE=================================
+
+  tree.file_dat_open();
+  tree.fill_tree();
+  tree.file_close();
  
 }
 
