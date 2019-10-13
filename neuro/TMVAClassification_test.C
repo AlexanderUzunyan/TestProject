@@ -231,8 +231,8 @@ int TMVAClassification_test( TString myMethodList = "" )
    //dataloader->AddVariable( "var4",                "Variable 4", "units", 'F' );
 
    dataloader->AddVariable( "age", "age", "units", 'F' );
-   dataloader->AddVariable( "e_color", "e_color", "units", 'F' );
-   dataloader->AddVariable( "sex", "sex", "units", 'F' );
+   //dataloader->AddVariable( "e_color", "e_color", "units", 'F' );
+   //dataloader->AddVariable( "sex", "sex", "units", 'F' );
    dataloader->AddVariable( "height", "height", "units", 'F' );
    dataloader->AddVariable( "body_weight", "body_weight", "units", 'F' );
    dataloader->AddVariable( "death_propability", "death_propability", "units", 'F' );
