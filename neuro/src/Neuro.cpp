@@ -8,115 +8,156 @@
 #include "Neuro.hpp"
 using namespace std;
 
-//default_random_engine generator;
-//normal_distribution<double> distribution(600.0, 160.0);
-pilot::pilot(int _debug, int _counter){
+pilot::pilot(int _debug, int _Nrecords, std::string _basename, int _datatype){
 
   debug = _debug;
-  counter = _counter;
-  random_point = time(NULL);
+  Nrecords = _Nrecords;
+  unsigned int seconds = time(NULL);
+  fnameASCII = _basename + ".dat";
+  fnameROOT = _basename + ".root";
+  datatype = _datatype;
+  Rndm.SetSeed(seconds);
+  if(datatype == 1){Rndm.SetSeed(seconds+1);}
+  pilotRecord.nr = 0;
 
+  // tree = new TTree("Tree", "neuro data from ASCII file");
+  //f = new TFile(fnameROOT, "RECREATE");
+  //tree->Branch("Pilot Death probability", &pilotRecord,"nr/I:age/I:e_color/I:sex/I:height/D:body_weight/D:record_weight/D");
   
 }
 //======================================
 //======================================
-void pilot::status_begin(){
+void test_func(){
 
-  cout << "Constructor succeed" << endl;
-
+//   cout << Rndm.Integer(5) << endl;
+//   cout << Rndm.Integer(5) << endl;
+//   cout << Rndm.Gaus(0,1) << endl;
+//   cout << Rndm.Gaus(0,1) << endl;
+//   cout << Rndm.Uniform(1,3) << endl;
+//   cout << Rndm.Uniform(1,3) << endl;
 }
 //======================================
 //======================================
-void pilot::generator(){
+void pilot::fill_record(){
 
-  srand(random_point);
-  random_point++;
+  double MeaneEyecolor = 460;
+  if(datatype == 0){
+    MeaneEyecolor = 580;
+  }
 
-}
-//======================================
-//======================================
-void pilot::fill_parameters(){
-
-  height = rand() % 25 + 150;
-  body_weight = rand() % 35 + 40;
-  age = rand() % 20 + 25;
-  e_color = rand() % 40 + 440;
-  //  e_all_color = rand() % 300 + 440;  
-  e_all_color = rand() % 100 + rand() % 100 + rand() % 100 + 440;
-  sex =  rand() % 2 + 1;
-
-}
-//======================================
-//======================================
-void pilot::probability_calculation(){
-
-  weight = 1*height + 2*body_weight + 2*age + 0.3*e_color + 0.2*sex;
-  weight1 =  1*height + 2*body_weight + 2*age + 0.3*e_all_color + 0.2*sex;
-  if(440 <= e_color || e_color <= 480) {weight = weight * 1.5;} 
-  if(440 <= e_all_color || e_all_color <= 480) {weight1 = weight1 * 1.5;} 
+  pilotRecord.height = Rndm.Gaus(162.5, 12.5);
+  pilotRecord.weight = Rndm.Gaus(57.5,17.5);
+  pilotRecord.age = Rndm.Gaus(32.5, 12.5);
+  pilotRecord.eyecolor = Rndm.Gaus(MeaneEyecolor, 20);
+  pilotRecord.sex = Rndm.Uniform(0,2);
   
 }
 //======================================
 //======================================
-void pilot::print_parameters(){
+void pilot::record_weight(){
 
-   cout << "Pilot`s parameters: " << 
-     " " << "height:" << height <<
-     " " << "Body_weight:" << body_weight <<
-     " " << "Age:" << age << 
-     " " << "Eye_color:" << e_color << 
-     " " << "Eyes_color:" << e_all_color <<
-     " " << "Sex:" << sex << 
-     " " << "Weight:" << weight <<  
+  pilotRecord.record_weight = 1*pilotRecord.height + 2*pilotRecord.weight + 2*pilotRecord.age + 0.3*pilotRecord.eyecolor + 0.2*pilotRecord.sex;
+  if(440 <= pilotRecord.eyecolor && pilotRecord.eyecolor <= 480) {pilotRecord.record_weight *= 1.5;} 
+ 
+}
+//======================================
+//======================================
+void pilot::print_record(){
+
+   cout << "Print record: " << 
+     " " << "height:" << pilotRecord.height <<
+     " " << "Body_weight:" << pilotRecord.weight <<
+     " " << "Age:" << pilotRecord.age << 
+     " " << "Eye_color:" << pilotRecord.eyecolor << 
+     " " << "Sex:" << pilotRecord.sex << 
+     " " << "Weight:" << pilotRecord.record_weight <<  
    endl;
-   
-   
+     
 }
 //======================================
 //======================================
 void pilot::open_file(){
 
-  out.open("neuro_signal.dat");
-  out1.open("neuro_back.dat");
-  cout << "Files are opened" << endl;
+  out.open(fnameASCII);
+   if(out==NULL){
+     out << "I can`t open OutputFile " << fnameASCII << endl;
+    exit(1);
+   }else{
+     cout << "OutputFile " << fnameASCII << " is opened" << endl;
+   }
 
 }
 //======================================
 //======================================
-void pilot::input_file_stream(){
+void pilot::write_record(){
   
-   if(out==NULL){
-    cout << "File is not opened" << endl;
-    exit(1);
-    }else{
-    out << height << 
-      " " << body_weight <<
-      " " << age <<
-      " " << e_color << 
-      " " << sex <<
-      " " << weight <<
+    out << pilotRecord.height << 
+      " " << pilotRecord.weight <<
+      " " << pilotRecord.age <<
+      " " << pilotRecord.eyecolor << 
+      " " << pilotRecord.sex <<
+      " " << pilotRecord.record_weight <<
     endl;
-   }
 
- if(out1==NULL){
-    out1 << "File is not opened" << endl;
-    exit(1);
-    }else{
-    out1 << height << 
-      " " << body_weight <<
-      " " << age <<
-      " " << e_all_color << 
-      " " << sex <<
-      " " << weight1 <<
-    endl;
-   }
+    if(debug > 1){
+      print_record();
+    }
+
 }
 //======================================
 //======================================
 void pilot::close_file(){
   
   out.close();
-  out1.close();
-  cout << "File is closed" << endl;
+  cout << "OutputFile " << fnameASCII << " is closed" << endl;
 
 }
+//======================================
+//======================================
+void pilot::generator(){
+
+  open_file();
+
+   for(int i = 0; i < Nrecords; i++){ 
+     fill_record();
+     record_weight();
+     write_record();
+     if(debug == 1){print_record;}
+     generate_rootfiles();
+   }
+
+  close_file();
+
+}
+//======================================
+//======================================
+void generate_rootfiles(){
+
+//   getline(cin, str);
+//   f << str << endl;
+//   pilotRecord.nr++;
+//   tree -> Fill();
+//   tree -> Write();
+
+  TTree* tree = new TTree("Tree", "neuro data from ASCII file");
+
+  if (tree == NULL){
+    cout << "Tree are not created" << endl;
+  }
+
+  tree->Branch("Pilot Death probability", &pilotRecord,"nr/I:age/I:e_color/I:sex/I:height/D:body_weight/D:record_weight/D");
+
+  TFile* f = new TFile(fnameROOT, "RECREATE");
+  char line[50];
+  while(fgets(line,49,out)){
+    sscanf(&line[0],"%lf %lf %d %d %d %lf",&pilotRecord.height,&pilotRecord.body_weight,&pilotRecord.age,&pilotRecord.eyecolor,&pilotRecord.sex,&pilotRecord.record_weight); 
+    pilotRecord.nr++;
+    tree -> Fill();
+   }
+   tree->Write();
+   f->Close();
+
+
+}
+//======================================
+//======================================
