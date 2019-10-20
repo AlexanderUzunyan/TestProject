@@ -52,7 +52,6 @@ class pilot
     std::ifstream in;     //ASCII input stream
     //Output data
     PilotRecord pilotRecord; //Struct pilot record
-
     //RootTree
     TFile* f;
     TTree* tree;
