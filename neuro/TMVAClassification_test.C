@@ -183,8 +183,8 @@ int TMVAClassification_test( TString myMethodList = "" )
 
    // Register the training and test trees
 
-   TTree *signalTree     = (TTree*)input->Get("T");
-   TTree *background     = (TTree*)input->Get("T");
+   TTree *signalTree     = (TTree*)input->Get("Tree");
+   TTree *background     = (TTree*)input->Get("Tree");
 
    //TTree* signalTree(0); 
    // input -> GetObject("signal", signalTree);
