@@ -42,6 +42,7 @@ class tree_pilot
 
     int debug;
 
+    //Tstring* fname = "file1";
     FILE* file;
     FILE* file1;
     TFile* f;
