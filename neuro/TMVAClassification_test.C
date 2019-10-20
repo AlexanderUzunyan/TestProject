@@ -163,28 +163,33 @@ int TMVAClassification_test( TString myMethodList = "" )
 
    // Read training and test data
    // (it is also possible to use ASCII format as input -> see TMVA Users Guide)
-   TFile *input(0);
+   TFile *input_signal(0);
+   TFile *input_background(0);
    // TString fname = "./tmva_class_example.root";//Rabotaet s failami =====
-   TString fname = "./background.root";//Rabotaet s failami =====
+   TString fname = "./signal.root";//Rabotaet s failami =====   TString fname1 ="./signal.root";
+   TString fname1 ="./background.root";
+
    if (!gSystem->AccessPathName( fname )) {
-      input = TFile::Open( fname ); // check if file in local directory exists
+      input_signal = TFile::Open( fname ); // check if file in local directory exist  
+      input_background = TFile::Open( fname1 );
    }
    else {
       TFile::SetCacheFileDir(".");
-      input = TFile::Open("http://root.cern.ch/files/tmva_class_example.root", "CACHEREAD");
+      input_signal = TFile::Open("http://root.cern.ch/files/tmva_class_example.root", "CACHEREAD");
    }
-   if (!input) {
+   if (!input_signal) {
       std::cout << "ERROR: could not open data file" << std::endl;
-      exit(1);
    }
-   std::cout << "--- TMVAClassification       : Using input file: " << input->GetName() << std::endl;
+   std::cout << "--- TMVAClassification       : Using input files: " << input_signal->GetName()<< " " << input_background->GetName() <<  std::endl;
 
    std::cout << "1" << std::endl;
 
    // Register the training and test trees
 
-   TTree *signalTree     = (TTree*)input->Get("Tree");
-   TTree *background     = (TTree*)input->Get("Tree");
+   TTree *signalTree = (TTree*)input_signal->Get("Tree");
+   TTree *background = (TTree*)input_background->Get("Tree");
+
+   // exit(0);
 
    //TTree* signalTree(0); 
    // input -> GetObject("signal", signalTree);
@@ -588,3 +593,11 @@ int main( int argc, char** argv )
    }
    return TMVAClassification_test(methodList);
 }
+
+
+
+
+
+
+
+
