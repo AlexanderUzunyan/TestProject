@@ -20,7 +20,7 @@ pilot::pilot(int _debug, int _Nrecords, std::string _basename, int _datatype){
   if(datatype == 1){Rndm.SetSeed(seconds+1);}
   pilotRecord.nr = 0;
 
-  // tree = new TTree("Tree", "neuro data from ASCII file");
+  //tree = new TTree("Tree", "neuro data from ASCII file");
   //f = new TFile(fnameROOT, "RECREATE");
   //tree->Branch("Pilot Death probability", &pilotRecord,"nr/I:age/I:e_color/I:sex/I:height/D:body_weight/D:record_weight/D");
   
@@ -29,12 +29,12 @@ pilot::pilot(int _debug, int _Nrecords, std::string _basename, int _datatype){
 //======================================
 void test_func(){
 
-//   cout << Rndm.Integer(5) << endl;
-//   cout << Rndm.Integer(5) << endl;
-//   cout << Rndm.Gaus(0,1) << endl;
-//   cout << Rndm.Gaus(0,1) << endl;
-//   cout << Rndm.Uniform(1,3) << endl;
-//   cout << Rndm.Uniform(1,3) << endl;
+  cout << Rndm.Integer(5) << endl;
+  cout << Rndm.Integer(5) << endl;
+  cout << Rndm.Gaus(0,1) << endl;
+  cout << Rndm.Gaus(0,1) << endl;
+  cout << Rndm.Uniform(1,3) << endl;
+  cout << Rndm.Uniform(1,3) << endl;
 }
 //======================================
 //======================================
