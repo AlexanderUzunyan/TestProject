@@ -21,11 +21,13 @@ int main(int argc, char** argv)
   
   int debug = atoi(argv[1]);
   int N_records = atoi(argv[2]);
-  pilot sp(debug, N_records, "signal", 0);
-  pilot bp(debug, N_records, "background", 1);
- 
-  sp.generator();
-  bp.generator();
+  pilot* sp = new pilot(debug, N_records, "signal", 0);
+  sp->generator();
+  delete sp;
+
+  pilot* bp = new pilot(debug, N_records, "background", 1);
+  bp->generator();
+  delete bp;
 
 }
 
