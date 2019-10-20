@@ -21,7 +21,7 @@ pilot::pilot(int _debug, int _Nrecords, std::string _basename, int _datatype){
   pilotRecord.nr = 0;
 
   tree = new TTree("Tree", "neuro data from ASCII file");
-  f = new TFile(fnameROOT, "RECREATE");
+  f = new TFile(fnameROOT.c_str(), "RECREATE");
   tree->Branch("Pilot Death probability", &pilotRecord,"nr/I:age/I:e_color/I:sex/I:height/D:body_weight/D:record_weight/D");
   
 }
@@ -133,13 +133,13 @@ void pilot::generator(){
 //======================================
 void pilot::generate_rootfiles(){
 
-  getline(cin, str);
-  f << str << endl;
-  pilotRecord.nr++;
-  tree -> Fill();
-  tree -> Write();
+//   getline(cin, str);
+//   f << str << endl;
+//   pilotRecord.nr++;
+//   tree -> Fill();
+//   tree -> Write();
 
-//   TTree* tree = new TTree("Tree", "neuro data from ASCII file");
+//  TTree* tree = new TTree("Tree", "neuro data from ASCII file");
 
 //   if (tree == NULL){
 //     cout << "Tree are not created" << endl;
@@ -147,9 +147,8 @@ void pilot::generate_rootfiles(){
 
 //   tree->Branch("Pilot Death probability", &pilotRecord,"nr/I:age/I:e_color/I:sex/I:height/D:weight/D:record_weight/D");
 
-//   TFile* f = new TFile(fnameROOT, "RECREATE");
 //   char line[50];
-//   while(fgets(line,49, out)){
+//   while(fgets(line,49, )){
 //     sscanf(&line[0],"%lf %lf %d %d %d %lf",&pilotRecord.height,&pilotRecord.weight,&pilotRecord.age,&pilotRecord.eyecolor,&pilotRecord.sex,&pilotRecord.record_weight); 
 //     pilotRecord.nr++;
 //     tree -> Fill();
