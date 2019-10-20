@@ -16,7 +16,7 @@ tree_pilot::tree_pilot(int _debug){
 //======================================
 void tree_pilot::file_dat_open(){
 
-  file = fopen("neuro_back.dat", "r");
+  file1 = fopen("neuro_back.dat", "r");
 
   file1 = fopen("neuro_signal.dat", "r");
 
@@ -33,7 +33,7 @@ void tree_pilot::file_dat_open(){
 //======================================
 void tree_pilot::fill_tree(){
 
-   tree = new TTree("T", "neuro data from ascii file");
+   TTree* tree = new TTree("T", "neuro data from ascii file");
    tree1 = new TTree("T", "neuro data from ascii file");
   
 
