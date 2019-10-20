@@ -22,7 +22,7 @@ pilot::pilot(int _debug, int _Nrecords, std::string _basename, int _datatype){
 
   tree = new TTree("Tree", "neuro data from ASCII file");
   f = new TFile(fnameROOT.c_str(), "RECREATE");
-  tree->Branch("Pilot Death probability", &pilotRecord,"nr/I:age/I:eyecolor/I:sex/D:height/D:weight/D:record_weight/D");
+  tree->Branch("Pilot Death probability", &pilotRecord.nr,"nr/F:age/F:eyecolor/F:sex/F:height/F:weight/F:record_weight/F");
   
 }
 //======================================
@@ -40,15 +40,17 @@ void pilot::test_func(){
 //======================================
 void pilot::fill_record(){
 
+  int sigma = 20;
   double MeaneEyecolor = 460;
   if(datatype == 0){
     MeaneEyecolor = 580;
+    sigma = 100;
   }
 
   pilotRecord.height = Rndm.Gaus(162.5, 12.5);
   pilotRecord.weight = Rndm.Gaus(57.5,17.5);
   pilotRecord.age = Rndm.Gaus(32.5, 12.5);
-  pilotRecord.eyecolor = Rndm.Gaus(MeaneEyecolor, 20);
+  pilotRecord.eyecolor = Rndm.Gaus(MeaneEyecolor, sigma);
   pilotRecord.sex = Rndm.Uniform(0,2);
   
 }
