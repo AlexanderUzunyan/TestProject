@@ -22,7 +22,7 @@ pilot::pilot(int _debug, int _Nrecords, std::string _basename, int _datatype){
 
   tree = new TTree("Tree", "neuro data from ASCII file");
   f = new TFile(fnameROOT.c_str(), "RECREATE");
-  tree->Branch("Pilot Death probability", &pilotRecord,"nr/I:age/I:e_color/I:sex/I:height/D:body_weight/D:record_weight/D");
+  tree->Branch("Pilot Death probability", &pilotRecord,"nr/I:age/I:eyecolor/I:sex/D:height/D:weight/D:record_weight/D");
   
 }
 //======================================
@@ -58,6 +58,7 @@ void pilot::record_weight(){
 
   pilotRecord.record_weight = 1*pilotRecord.height + 2*pilotRecord.weight + 2*pilotRecord.age + 0.3*pilotRecord.eyecolor + 0.2*pilotRecord.sex;
   if(440 <= pilotRecord.eyecolor && pilotRecord.eyecolor <= 480) {pilotRecord.record_weight *= 1.5;} 
+  cout << "record " << pilotRecord.record_weight << endl;
  
 }
 //======================================
@@ -91,7 +92,7 @@ void pilot::open_file(){
 //======================================
 void pilot::write_record(){
   
-    out << pilotRecord.height << 
+  out << pilotRecord.height << 
       " " << pilotRecord.weight <<
       " " << pilotRecord.age <<
       " " << pilotRecord.eyecolor << 
@@ -122,11 +123,13 @@ void pilot::generator(){
      fill_record();
      record_weight();
      write_record();
+     tree -> Fill();
      if(debug == 1){print_record();}
-     generate_rootfiles();
+     // generate_rootfiles();
    }
-
-  close_file();
+   tree -> Write();
+   f->Close();
+   close_file();
 
 }
 //======================================
