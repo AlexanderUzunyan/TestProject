@@ -29,13 +29,13 @@
 
 
 struct PilotRecord{ //Pilot`s data
-        int nr; //Record number
-	int age;
-	int eyecolor;
-	double sex;
-	double height;
-	double weight;
-        double record_weight;//record`s weight
+        float nr; //Record number
+	float age;
+	float eyecolor;
+	float sex;
+	float height;
+	float weight;
+        float record_weight;//record`s weight
     };
 
 class pilot
