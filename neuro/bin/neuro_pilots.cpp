@@ -20,32 +20,12 @@ int main(int argc, char** argv)
   }
   
   int debug = atoi(argv[1]);
-  int counter = atoi(argv[2]);
-
-  pilot p(debug, counter);
-  tree_pilot tree(debug);
-
-  p.status_begin();
-  p.open_file();
-
-   for(int i = 0; i < counter; i++){ 
-     p.generator();
-     p.fill_parameters();
-     p.probability_calculation();
+  int N_records = atoi(argv[2]);
+  pilot sp(debug, N_records, "signal", 0);
+  pilot bp(debug, N_records, "background", 1);
  
-     if(debug == 2){
-       p.print_parameters();
-     }
+  sp.generator();
+  bp.generator();
 
-     p.input_file_stream();
-   }
-  p.close_file();
-
-  //TREE=================================
-
-  tree.file_dat_open();
-  tree.fill_tree();
-  tree.file_close();
- 
 }
 
