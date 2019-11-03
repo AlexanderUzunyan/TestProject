@@ -43,7 +43,6 @@ struct PilotRecord{ //Pilot`s data
         float record_weight;//record`s weight
     };
 
-
     int Nrecords;         
     std::string fnameASCII; 
     std::string fnameROOT; 
@@ -77,9 +76,10 @@ int main(int argc, char** argv)
 
   tree = new TTree("Tree", "neuro data from ASCII file");
   f = new TFile(fnameROOT.c_str(), "RECREATE");
-  tree->Branch("Pilot Death probability", &pilotRecord.nr,"nr/F:age/F:eyecolor/F:sex/F:height/F:weight/F:record_weight/F");
+  tree->Branch("pilotRecord", &pilotRecord.nr,"nr/F:age/F:eyecolor/F:sex/F:height/F:weight/F:record_weight/F");
 
   for(int i = 0; i < Nrecords; i++){ 
+    open_file();
     fill_record();
     write_record();
     tree -> Fill();
