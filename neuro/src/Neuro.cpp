@@ -22,7 +22,7 @@ pilot::pilot(int _debug, int _Nrecords, std::string _basename, int _datatype){
 
   tree = new TTree("Tree", "neuro data from ASCII file");
   f = new TFile(fnameROOT.c_str(), "RECREATE");
-  tree->Branch("Pilot Death probability", &pilotRecord.nr,"nr/F:age/F:eyecolor/F:sex/F:height/F:weight/F:record_weight/F");
+  tree->Branch("pilotRecord", &pilotRecord.nr,"nr/F:age/F:eyecolor/F:sex/F:height/F:weight/F:record_weight/F");
   
 }
 //======================================
