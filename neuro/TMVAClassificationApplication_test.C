@@ -300,23 +300,20 @@ void TMVAClassificationApplication_test( TString myMethodList = "" )
    TTree* theTree = (TTree*)input->Get("Tree");
 
    //float branch 
-   TheTree->SetBranchAddress("Pilot Death probability", &Pilot Death probability_nr, &b_Pilot Death probability);
+   // TheTree->SetBranchAddress("pilotRecord", &Pilot Death probability_nr, &b_Pilot Death probability);
 
-
-
-   //  float age;
-//     float eyecolor;
-//     float sex;
-//     float height;
-//     float weight;
-//     float record_weight;
-//float _record_weight;
- // theTree->SetBranchAddress("record_weight",&record_weight );
- //  theTree->SetBranchAddress("eyecolor",&eyecolor );
- //  theTree->SetBranchAddress("weight",&weight );
- //  theTree->SetBranchAddress("height",&height );
- //  theTree->SetBranchAddress("sex",&sex );
- //  theTree->SetBranchAddress("age",&age );
+  float age;
+  float eyecolor;
+  float sex;
+  float height;
+  float weight;
+  float record_weight;
+  theTree->SetBranchAddress("record_weight",&record_weight );
+  theTree->SetBranchAddress("eyecolor",&eyecolor );
+  theTree->SetBranchAddress("weight",&weight );
+  theTree->SetBranchAddress("height",&height );
+  theTree->SetBranchAddress("sex",&sex );
+  theTree->SetBranchAddress("age",&age );
    // Float_t userVar1, userVar2;
    //theTree->SetBranchAddress( "var1", &userVar1 );
    //theTree->SetBranchAddress( "var2", &userVar2 );
