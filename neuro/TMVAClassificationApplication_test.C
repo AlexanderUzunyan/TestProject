@@ -30,6 +30,17 @@
 
 using namespace TMVA;
 
+  
+struct PilotRecord{
+   Float_t        nr;
+   Float_t        age;
+   Float_t        eyecolor;
+   Float_t        sex;
+   Float_t        height;
+   Float_t        weight;
+   Float_t        record_weight;
+};
+
 void TMVAClassificationApplication_test( TString myMethodList = "" )
 {
 
@@ -137,22 +148,15 @@ void TMVAClassificationApplication_test( TString myMethodList = "" )
 
    // Create a set of variables and declare them to the reader
    // - the variable names MUST corresponds in name and type to those given in the weight file(s) used
-   float age_;
-   float eyecolor_;
-   float sex_;
-   float height_;
-   float weight_;
-   float record_weight_;
+
    //record`s weight Float_t var1, var2;
-  
-   reader->AddVariable( "age", &age_ );
-   reader->AddVariable( "eyecolor", &eyecolor_ );
-   reader->AddVariable( "sex", &sex_ );
-   reader->AddVariable( "height", &height_ );
-   reader->AddVariable( "weight", &weight_ );
-   reader->AddVariable( "record_weight", &record_weight_ );
-
-
+   PilotRecord pr;
+   reader->AddVariable( "age", &pr.age );
+   reader->AddVariable( "eyecolor", &pr.eyecolor );
+   reader->AddVariable( "sex", &pr.sex );
+   reader->AddVariable( "height", &pr.height );
+   reader->AddVariable( "weight", &pr.weight );
+   reader->AddVariable( "record_weight", &pr.record_weight );
 
    // Spectator variables declared in the training have to be added to the reader, too
 //    Float_t spec1,spec2;
@@ -302,18 +306,21 @@ void TMVAClassificationApplication_test( TString myMethodList = "" )
    //float branch 
    // TheTree->SetBranchAddress("pilotRecord", &Pilot Death probability_nr, &b_Pilot Death probability);
 
-  float age;
-  float eyecolor;
-  float sex;
-  float height;
-  float weight;
-  float record_weight;
-  theTree->SetBranchAddress("record_weight",&record_weight );
-  theTree->SetBranchAddress("eyecolor",&eyecolor );
-  theTree->SetBranchAddress("weight",&weight );
-  theTree->SetBranchAddress("height",&height );
-  theTree->SetBranchAddress("sex",&sex );
-  theTree->SetBranchAddress("age",&age );
+//   float age;
+//   float eyecolor;
+//   float sex;
+//   float height;
+//   float weight;
+//   float record_weight;
+
+    theTree->SetBranchAddress("pilotRecord", &pr.nr);
+
+//   theTree->SetBranchAddress("record_weight",&record_weight );
+//   theTree->SetBranchAddress("eyecolor",&eyecolor );
+//   theTree->SetBranchAddress("weight",&weight );
+//   theTree->SetBranchAddress("height",&height );
+//   theTree->SetBranchAddress("sex",&sex );
+//   theTree->SetBranchAddress("age",&age );
    // Float_t userVar1, userVar2;
    //theTree->SetBranchAddress( "var1", &userVar1 );
    //theTree->SetBranchAddress( "var2", &userVar2 );
@@ -334,7 +341,7 @@ void TMVAClassificationApplication_test( TString myMethodList = "" )
       if (ievt%1000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
 
       theTree->GetEntry(ievt);
-      cout << record_weight << " " << eyecolor << " " << weight << endl;
+      cout << "Weight/eyecolor/weight= " << pr.record_weight << " " << pr.eyecolor << " " << pr.weight << endl;
       //var1 = userVar1 + userVar2;
       //var2 = userVar1 - userVar2;
 
@@ -367,7 +374,14 @@ void TMVAClassificationApplication_test( TString myMethodList = "" )
       if (Use["TMlpANN"      ])   histNnT    ->Fill( reader->EvaluateMVA( "TMlpANN method"       ) );
       if (Use["DNN_GPU"]) histDnnGpu->Fill(reader->EvaluateMVA("DNN_GPU method"));
       if (Use["DNN_CPU"]) histDnnCpu->Fill(reader->EvaluateMVA("DNN_CPU method"));
-      if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method"           ) );
+      if (Use["BDT"          ]){  
+	float BDT = reader->EvaluateMVA( "BDT method"           );
+	if(BDT < 0.01){
+	  std::cout << "Dump pilot number " << pr.nr << std::endl;
+	}
+	histBdt    ->Fill( BDT );
+       	
+      }
       if (Use["BDTG"         ])   histBdtG   ->Fill( reader->EvaluateMVA( "BDTG method"          ) );
       if (Use["BDTB"         ])   histBdtB   ->Fill( reader->EvaluateMVA( "BDTB method"          ) );
       if (Use["BDTD"         ])   histBdtD   ->Fill( reader->EvaluateMVA( "BDTD method"          ) );
