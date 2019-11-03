@@ -137,36 +137,25 @@ void TMVAClassificationApplication( TString myMethodList = "" )
 
    // Create a set of variables and declare them to the reader
    // - the variable names MUST corresponds in name and type to those given in the weight file(s) used
-   float nr; //Record number
-   float age;
-   float eyecolor;
-   float sex;
-   float height;
-   float weight;
-   float record_weight;//record`s weight Float_t var1, var2;
-  
-   reader->AddVariable( "nr", &nr );
-   reader->AddVariable( "age", &age );
-   reader->AddVariable( "eyecolor", &eyecolor );
-   reader->AddVariable( "sex", &sex );
-   reader->AddVariable( "height", &height );
-   reader->AddVariable( "weight", &weight );
-   reader->AddVariable( "record_weight", &record_weight );
-
-
+   Float_t var1, var2;
+   Float_t var3, var4;
+   reader->AddVariable( "myvar1 := var1+var2", &var1 );
+   reader->AddVariable( "myvar2 := var1-var2", &var2 );
+   reader->AddVariable( "var3",                &var3 );
+   reader->AddVariable( "var4",                &var4 );
 
    // Spectator variables declared in the training have to be added to the reader, too
-//    Float_t spec1,spec2;
-//    reader->AddSpectator( "spec1 := var1*2",   &spec1 );
-//    reader->AddSpectator( "spec2 := var1*3",   &spec2 );
+   Float_t spec1,spec2;
+   reader->AddSpectator( "spec1 := var1*2",   &spec1 );
+   reader->AddSpectator( "spec2 := var1*3",   &spec2 );
 
-//    Float_t Category_cat1, Category_cat2, Category_cat3;
-//    if (Use["Category"]){
-//       // Add artificial spectators for distinguishing categories
-//       reader->AddSpectator( "Category_cat1 := var3<=0",             &Category_cat1 );
-//       reader->AddSpectator( "Category_cat2 := (var3>0)&&(var4<0)",  &Category_cat2 );
-//       reader->AddSpectator( "Category_cat3 := (var3>0)&&(var4>=0)", &Category_cat3 );
-//    }
+   Float_t Category_cat1, Category_cat2, Category_cat3;
+   if (Use["Category"]){
+      // Add artificial spectators for distinguishing categories
+      reader->AddSpectator( "Category_cat1 := var3<=0",             &Category_cat1 );
+      reader->AddSpectator( "Category_cat2 := (var3>0)&&(var4<0)",  &Category_cat2 );
+      reader->AddSpectator( "Category_cat3 := (var3>0)&&(var4>=0)", &Category_cat3 );
+   }
 
    // Book the MVA methods
 
@@ -276,7 +265,7 @@ void TMVAClassificationApplication( TString myMethodList = "" )
    // we'll later on use only the "signal" events for the test in this example.
    //
    TFile *input(0);
-   TString fname = "./signal_test.root";
+   TString fname = "./tmva_class_example.root";
    if (!gSystem->AccessPathName( fname )) {
       input = TFile::Open( fname ); // check if file in local directory exists
    }
@@ -298,15 +287,12 @@ void TMVAClassificationApplication( TString myMethodList = "" )
    //   but of course you can use different ones and copy the values inside the event loop
    //
    std::cout << "--- Select signal sample" << std::endl;
-   TTree* theTree = (TTree*)input->Get("Tree");
-   //float _record_weight;
-   theTree->SetBranchAddress("record_weight",&record_weight );
-
-   // Float_t userVar1, userVar2;
-   //theTree->SetBranchAddress( "var1", &userVar1 );
-   //theTree->SetBranchAddress( "var2", &userVar2 );
-   //theTree->SetBranchAddress( "var3", &var3 );
-   //theTree->SetBranchAddress( "var4", &var4 );
+   TTree* theTree = (TTree*)input->Get("TreeS");
+   Float_t userVar1, userVar2;
+   theTree->SetBranchAddress( "var1", &userVar1 );
+   theTree->SetBranchAddress( "var2", &userVar2 );
+   theTree->SetBranchAddress( "var3", &var3 );
+   theTree->SetBranchAddress( "var4", &var4 );
 
    // Efficiency calculator for cut method
    Int_t    nSelCutsGA = 0;
@@ -323,8 +309,8 @@ void TMVAClassificationApplication( TString myMethodList = "" )
 
       theTree->GetEntry(ievt);
 
-      //var1 = userVar1 + userVar2;
-      //var2 = userVar1 - userVar2;
+      var1 = userVar1 + userVar2;
+      var2 = userVar1 - userVar2;
 
       // Return the MVA outputs and fill into histograms
 
