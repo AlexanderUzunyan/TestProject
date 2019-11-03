@@ -78,12 +78,13 @@ int main(int argc, char** argv)
   f = new TFile(fnameROOT.c_str(), "RECREATE");
   tree->Branch("pilotRecord", &pilotRecord.nr,"nr/F:age/F:eyecolor/F:sex/F:height/F:weight/F:record_weight/F");
 
-  open_file();
+  //open_file();
   for(int i = 0; i < Nrecords; i++){ 
     fill_record();
     write_record();
     tree -> Fill();
     if(debug == 1){print_record();}
+    pilotRecord.nr++;
     }
    tree -> Write();
    f->Close();
