@@ -30,7 +30,7 @@
 
 using namespace TMVA;
 
-void TMVAClassificationApplication( TString myMethodList = "" )
+void TMVAClassificationApplication_test( TString myMethodList = "" )
 {
 
    //---------------------------------------------------------------
@@ -137,21 +137,20 @@ void TMVAClassificationApplication( TString myMethodList = "" )
 
    // Create a set of variables and declare them to the reader
    // - the variable names MUST corresponds in name and type to those given in the weight file(s) used
-   float nr; //Record number
-   float age;
-   float eyecolor;
-   float sex;
-   float height;
-   float weight;
-   float record_weight;//record`s weight Float_t var1, var2;
+   float age_;
+   float eyecolor_;
+   float sex_;
+   float height_;
+   float weight_;
+   float record_weight_;
+   //record`s weight Float_t var1, var2;
   
-   reader->AddVariable( "nr", &nr );
-   reader->AddVariable( "age", &age );
-   reader->AddVariable( "eyecolor", &eyecolor );
-   reader->AddVariable( "sex", &sex );
-   reader->AddVariable( "height", &height );
-   reader->AddVariable( "weight", &weight );
-   reader->AddVariable( "record_weight", &record_weight );
+   reader->AddVariable( "age", &age_ );
+   reader->AddVariable( "eyecolor", &eyecolor_ );
+   reader->AddVariable( "sex", &sex_ );
+   reader->AddVariable( "height", &height_ );
+   reader->AddVariable( "weight", &weight_ );
+   reader->AddVariable( "record_weight", &record_weight_ );
 
 
 
@@ -299,9 +298,25 @@ void TMVAClassificationApplication( TString myMethodList = "" )
    //
    std::cout << "--- Select signal sample" << std::endl;
    TTree* theTree = (TTree*)input->Get("Tree");
-   //float _record_weight;
-   theTree->SetBranchAddress("record_weight",&record_weight );
 
+   //float branch 
+   TheTree->SetBranchAddress("Pilot Death probability", &Pilot Death probability_nr, &b_Pilot Death probability);
+
+
+
+   //  float age;
+//     float eyecolor;
+//     float sex;
+//     float height;
+//     float weight;
+//     float record_weight;
+//float _record_weight;
+ // theTree->SetBranchAddress("record_weight",&record_weight );
+ //  theTree->SetBranchAddress("eyecolor",&eyecolor );
+ //  theTree->SetBranchAddress("weight",&weight );
+ //  theTree->SetBranchAddress("height",&height );
+ //  theTree->SetBranchAddress("sex",&sex );
+ //  theTree->SetBranchAddress("age",&age );
    // Float_t userVar1, userVar2;
    //theTree->SetBranchAddress( "var1", &userVar1 );
    //theTree->SetBranchAddress( "var2", &userVar2 );
@@ -322,7 +337,7 @@ void TMVAClassificationApplication( TString myMethodList = "" )
       if (ievt%1000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
 
       theTree->GetEntry(ievt);
-
+      cout << record_weight << " " << eyecolor << " " << weight << endl;
       //var1 = userVar1 + userVar2;
       //var2 = userVar1 - userVar2;
 
@@ -478,6 +493,6 @@ int main( int argc, char** argv )
       if (!methodList.IsNull()) methodList += TString(",");
       methodList += regMethod;
    }
-   TMVAClassificationApplication(methodList);
+   TMVAClassificationApplication_test(methodList);
    return 0;
 }
