@@ -137,23 +137,24 @@ void TMVAClassificationApplication( TString myMethodList = "" )
 
    // Create a set of variables and declare them to the reader
    // - the variable names MUST corresponds in name and type to those given in the weight file(s) used
-//    Float_t var1, var2;
-//    Float_t var3, var4;
-//    reader->AddVariable( "myvar1 := var1+var2", &var1 );
-//    reader->AddVariable( "myvar2 := var1-var2", &var2 );
-//    reader->AddVariable( "var3",                &var3 );
-//    reader->AddVariable( "var4",                &var4 );
+   float nr; //Record number
+   float age;
+   float eyecolor;
+   float sex;
+   float height;
+   float weight;
+   float record_weight;//record`s weight Float_t var1, var2;
+  
+   reader->AddVariable( "nr", &nr );
+   reader->AddVariable( "age", &age );
+   reader->AddVariable( "eyecolor", &eyecolor );
+   reader->AddVariable( "sex", &sex );
+   reader->AddVariable( "height", &height );
+   reader->AddVariable( "weight", &weight );
+   reader->AddVariable( "record_weight", &record_weight );
 
-   float age, eyecolor, sex, heigth, weigth, record_weight;
-   
-   reader->AddVariable( "age", &age);
-   reader->AddVariable( "eyecolor", &eyecolor);
-   reader->AddVariable( "sex", &sex);
-   reader->AddVariable( "height", &height);
-   reader->AddVariable( "weight", &weight);
-   reader->AddVariable( "record_weight", &record_weight);
 
-   // In training files??
+
    // Spectator variables declared in the training have to be added to the reader, too
 //    Float_t spec1,spec2;
 //    reader->AddSpectator( "spec1 := var1*2",   &spec1 );
@@ -166,13 +167,6 @@ void TMVAClassificationApplication( TString myMethodList = "" )
 //       reader->AddSpectator( "Category_cat2 := (var3>0)&&(var4<0)",  &Category_cat2 );
 //       reader->AddSpectator( "Category_cat3 := (var3>0)&&(var4>=0)", &Category_cat3 );
 //    }
-
-   reader->AddSpectator( "age", &age);
-   reader->AddSpectator( "eyecolor", &eyecolor);
-   reader->AddSpectator( "sex", &sex);
-   reader->AddSpectator( "height", &height);
-   reader->AddSpectator( "weight", &weight);
-   reader->AddSpectator( "record_weight", &record_weight); 
 
    // Book the MVA methods
 
@@ -281,68 +275,38 @@ void TMVAClassificationApplication( TString myMethodList = "" )
    // in this example, there is a toy tree with signal and one with background events
    // we'll later on use only the "signal" events for the test in this example.
    //
-//    TFile *input(0);
-//    TString fname = "./tmva_class_example.root";
-//    if (!gSystem->AccessPathName( fname )) {
-//       input = TFile::Open( fname ); // check if file in local directory exists
-//    }
-//    else {
-//       TFile::SetCacheFileDir(".");
-//       input = TFile::Open("http://root.cern.ch/files/tmva_class_example.root", "CACHEREAD"); // if not: download from ROOT server
-//    }
-//    if (!input) {
-//       std::cout << "ERROR: could not open data file" << std::endl;
-//       exit(1);
-//    }
-//    std::cout << "--- TMVAClassificationApp    : Using input file: " << input->GetName() << std::endl;
-
-//    // Event loop
-
-//    // Prepare the event tree
-//    // - Here the variable names have to corresponds to your tree
-//    // - You can use the same variables as above which is slightly faster,
-//    //   but of course you can use different ones and copy the values inside the event loop
-//    //
-//    std::cout << "--- Select signal sample" << std::endl;
-//    TTree* theTree = (TTree*)input->Get("TreeS");
-//    Float_t userVar1, userVar2;
-//    theTree->SetBranchAddress( "var1", &userVar1 );
-//    theTree->SetBranchAddress( "var2", &userVar2 );
-//    theTree->SetBranchAddress( "var3", &var3 );
-//    theTree->SetBranchAddress( "var4", &var4 );
-//=====
-
-   TFile* input_signal(0);
-   TFile* input_background(0);
-   // TString fname = "./tmva_class_example.root";//Rabotaet s failami =====
-   TString fname = "./signal.root";//Rabotaet s failami =====   TString fname1 ="./signal.root";
-   TString fname1 ="./background.root";
-
+   TFile *input(0);
+   TString fname = "./signal_test.root";
    if (!gSystem->AccessPathName( fname )) {
-      input_signal = TFile::Open( fname ); // check if file in local directory exist  
-      input_background = TFile::Open( fname1 );
+      input = TFile::Open( fname ); // check if file in local directory exists
    }
    else {
       TFile::SetCacheFileDir(".");
-      input_signal = TFile::Open("http://root.cern.ch/files/tmva_class_example.root", "CACHEREAD");
+      input = TFile::Open("http://root.cern.ch/files/tmva_class_example.root", "CACHEREAD"); // if not: download from ROOT server
    }
-   if (!input_signal) {
+   if (!input) {
       std::cout << "ERROR: could not open data file" << std::endl;
+      exit(1);
    }
-   std::cout << "--- TMVAClassification       : Using input files: " << input_signal->GetName() << " " << input_background->GetName() <<  std::endl;
-   std::cout << "--- Select signal and background sample" << std::endl;
- 
-   std::cout << "1" << std::endl;
+   std::cout << "--- TMVAClassificationApp    : Using input file: " << input->GetName() << std::endl;
 
-   // Register the training and test trees
+   // Event loop
 
-   TTree* signalTree = (TTree*)input_signal->Get("Tree");
-   TTree* background = (TTree*)input_background->Get("Tree");
+   // Prepare the event tree
+   // - Here the variable names have to corresponds to your tree
+   // - You can use the same variables as above which is slightly faster,
+   //   but of course you can use different ones and copy the values inside the event loop
+   //
+   std::cout << "--- Select signal sample" << std::endl;
+   TTree* theTree = (TTree*)input->Get("Tree");
+   //float _record_weight;
+   theTree->SetBranchAddress("record_weight",&record_weight );
 
-
-   float record_weightS, record_weightB;
-   signalTree->SetBranchAddress("record_weigth", &record_weightS );
-   backgrounf->SetBranchAddress("record_weight", &record_weightB );
+   // Float_t userVar1, userVar2;
+   //theTree->SetBranchAddress( "var1", &userVar1 );
+   //theTree->SetBranchAddress( "var2", &userVar2 );
+   //theTree->SetBranchAddress( "var3", &var3 );
+   //theTree->SetBranchAddress( "var4", &var4 );
 
    // Efficiency calculator for cut method
    Int_t    nSelCutsGA = 0;
@@ -350,18 +314,17 @@ void TMVAClassificationApplication( TString myMethodList = "" )
 
    std::vector<Float_t> vecVar(4); // vector for EvaluateMVA tests
 
-   std::cout << "--- Processing: " << SignalTree->GetEntries() << SignalTree->GetEntries() << " events" << std::endl;
+   std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
    TStopwatch sw;
-   for(int i = 0; i<2; i++){
    sw.Start();
-   for (Long64_t ievt=0; ievt<SignalTree->GetEntries();ievt++) {
+   for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
 
       if (ievt%1000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
 
-      SignalTree->GetEntry(ievt);
+      theTree->GetEntry(ievt);
 
-      var1 = userVar1 + userVar2;
-      var2 = userVar1 - userVar2;
+      //var1 = userVar1 + userVar2;
+      //var2 = userVar1 - userVar2;
 
       // Return the MVA outputs and fill into histograms
 
@@ -421,15 +384,13 @@ void TMVAClassificationApplication( TString myMethodList = "" )
          rarityHistFi->Fill( reader->GetRarity( "Fisher method" ) );
       }
    }
-   
+
    // Get elapsed time
    sw.Stop();
    std::cout << "--- End of event loop: "; sw.Print();
-   SignalTree = background;
-   }
 
    // Get efficiency for cuts classifier
-   if (Use["CutsGA"]) std::cout << "--- Efficiency for CutsGA method: " << double(nSelCutsGA)/SignalTree->GetEntries() << double(nSelCutsGA)/background->GetEntries() <<
+   if (Use["CutsGA"]) std::cout << "--- Efficiency for CutsGA method: " << double(nSelCutsGA)/theTree->GetEntries()
                                 << " (for a required signal efficiency of " << effS << ")" << std::endl;
 
    if (Use["CutsGA"]) {
