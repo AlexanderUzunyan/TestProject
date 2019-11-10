@@ -2,24 +2,33 @@ Stgnal and background samples generations for neural network example.
 
 <<<<<<< HEAD
 Example:
-gmake clean           #remove service files 
-gmake all             #create binaries
-neuro_pilots 2 500    #generate text data  files for signal and background
-tree  1               #convert text files into root format
+gmake clean          				#remove service files 
+gmake all             				#create binaries
+neuro_pilots 2 500    				#generate text and root data files for signal and background, add data in Tree for root files
+root TMVAClassificaton.C			#use root files for classification and weight computations for data in tree
+root TMVACLassificationApplication.C#use tree in root file for building hist with values of classification from "weight" direvtory of test events
 
 When done should see 2 root files::
 neuro]$ ls *.root
 neuro_back.root  neuro_signal.root
 
+When done with TMVAClassification.C should see the "TMVA Plotting macros for Classification", "dataset" directory and TMVA.root file.
+
+When done with TMVAClassificationApplication.C should see the TMVApp.root file with histograms.
+
 =======
 gmake clean 
 gmake all 
 neuro_pilots 2 500
-tree 1
->>>>>>> 25381c1eaae819700a84747e5d75db22a31ad0a8
+root TMVAClassification_test.C\(\"BDT\"\)
+root TMVAClassificationApplication_test.C\(\"BDT\"\)
+
+>>>>>>> 
 
 Example runnign program 'neuro_pilots 2 500' with parameters '1' - level of printing info about program`s work, '500' - numbers of events in output files. Program generate two files with data
  
-Exmaple running program 'tree 1' with parameter '1' - level of printing info about program`s work; program creates two files with signal and background
+Exmaple running program "root TMVAClassification_test.C\(\"BDT\"\)" with parameter\(\"BDT\"\) - name of certain classificator. Program makes "TMVA Plotting macros for Classification" on the screen.
+
+Exmaple running program "root TMVAClassificationApplication_test.C\(\"BDT\"\)" with parameter\(\"BDT\"\) - name of certain classificator. Program makes the TMVApp.root file with histograms. There are the names of classificators included in histogram`s names.
 
 
